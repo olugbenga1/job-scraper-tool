@@ -10,13 +10,26 @@ export class Job extends Document {
   company: string;
 
   @Prop({ required: true })
-  job_location: string;
+  location: string;
+
+  @Prop()
+  description: string;
+
+  @Prop()
+  salary: string;
 
   @Prop({ required: true })
-  link: string;
+  url: string;
 
   @Prop({ required: true })
   source: string;
+
+  @Prop({ required: true })
+  postDate: Date;
+
+  @Prop({ default: Date.now() })
+  scrapedAt: Date;
 }
 
 export const JobSchema = SchemaFactory.createForClass(Job);
+JobSchema.index({ url: 1, source: 1 }, { unique: true });
